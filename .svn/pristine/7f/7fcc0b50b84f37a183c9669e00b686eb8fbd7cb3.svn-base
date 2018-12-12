@@ -1,0 +1,8 @@
+server:
+  port: 8081
+#  context-path: /api
+logging:
+  level:
+    root: warn
+    com.lrm: info
+  file: logs/my.log

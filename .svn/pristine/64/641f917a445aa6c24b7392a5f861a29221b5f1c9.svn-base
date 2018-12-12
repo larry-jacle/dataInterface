@@ -1,0 +1,4 @@
+logDir=/data/scripts/byinterserver/log/
+#logDir=E:/work1/process/tmp/
+successFileName=sucess.log
+failFileName=fail.log

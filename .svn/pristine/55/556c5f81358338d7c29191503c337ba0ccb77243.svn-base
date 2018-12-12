@@ -1,0 +1,89 @@
+package com.gildata.byinterserver.quartz;
+
+import com.gildata.byinterserver.bean.NewsMatchRatio;
+import com.gildata.byinterserver.constant.Constant;
+import com.gildata.byinterserver.utils.NumberUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * 新闻入库数据统计定时任务
+ * Created by chenchen on 2018/11/16.
+ */
+public class NewsStatJob {
+    private final Logger logger = LoggerFactory.getLogger(NewsStatJob.class);
+
+    private Pattern successPattern = Pattern.compile("datacount = ([\\d]+)");
+    private Pattern failPattern = Pattern.compile("\"datasize\":\"([\\d]+)\"");
+    NewsMatchRatio todayNewsStat = null;
+
+    public void doJob() throws IOException {
+        todayNewsStat = Init.getNewsMatchRatio().clone();
+
+        String logDir = Init.getProperty().getProperty(Constant.LOG_DIR);
+        File successFile = new File(logDir, Init.getProperty().getProperty(Constant.SUCCESS_FILE_NAME));
+        File failFile = new File(logDir, Init.getProperty().getProperty(Constant.FAIL_FILE_NAME));
+        int successOffSet = todayNewsStat.getSuccessOffSet();
+        int failOffSet = todayNewsStat.getFailOffSet();
+
+        int[] successResult = parseLogToNewsNum(successFile, successOffSet, successPattern);
+        int[] failResult = parseLogToNewsNum(failFile, failOffSet, failPattern);
+
+        int successTotal = Integer.parseInt(todayNewsStat.getSuccess()
+                .replaceAll(",", "")) + successResult[0];
+        int failTotal = Integer.parseInt(todayNewsStat.getFail()
+                .replaceAll(",", "")) + failResult[0];
+        int total = successTotal + failTotal;
+        String ratio = NumberUtil.getRatio(successTotal, total);
+
+        todayNewsStat.setSuccess(NumberUtil.getNumberFormat(successTotal));
+        todayNewsStat.setFail(NumberUtil.getNumberFormat(failTotal));
+        todayNewsStat.setTotal(NumberUtil.getNumberFormat(total));
+        todayNewsStat.setSuccessRatio(ratio);
+        todayNewsStat.setSuccessOffSet(successResult[1]);
+        todayNewsStat.setFailOffSet(failResult[1]);
+        Init.setNewsMatchRatio(todayNewsStat);
+        Init.loadData();
+    }
+
+    public int[] parseLogToNewsNum(File file, int offSet, Pattern pattern) throws IOException {
+        if (!file.exists()) {
+            logger.warn("file [{}] is not exist!", file.getAbsolutePath());
+            return new int[]{0, offSet};
+        }
+
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        Matcher matcher = null;
+
+        int newsCount = 0;
+        int lineCount = 0;
+        String line;
+        while ((line = reader.readLine()) != null) {
+            // 从上次job结束时读取位置的下一行开始读取
+            if (lineCount++ < offSet) continue;
+
+            matcher = pattern.matcher(line);
+            if (matcher.find()) {
+                newsCount += Integer.parseInt(matcher.group(1));
+            }
+        }
+        reader.close();
+
+        return new int[]{newsCount, lineCount};
+    }
+
+    public static void main(String[] args) {
+        try {
+            new NewsStatJob().doJob();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

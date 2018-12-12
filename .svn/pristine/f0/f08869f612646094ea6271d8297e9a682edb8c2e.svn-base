@@ -1,0 +1,71 @@
+package com.gildata.byinterserver.controller;
+
+import com.alibaba.fastjson.JSON;
+import com.gildata.byinterserver.bean.NewsItem;
+import com.gildata.byinterserver.bean.NewsMatchRatio;
+import com.gildata.byinterserver.quartz.Init;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 博约接口新闻统计Controller
+ * Created by chenchen on 2018/11/16.
+ */
+@Controller
+public class NewsMatchStatController {
+    private static final Logger logger = LoggerFactory.getLogger(NewsMatchStatController.class);
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String toMain(Model model) {
+        List<NewsItem> newsItems = Init.getNewsItems();
+        model.addAttribute("newsItems", newsItems);
+
+        return "businessdata/newsmatchstat";
+    }
+
+    @RequestMapping(value = "/stat/gauge", method = RequestMethod.GET)
+    @ResponseBody
+    public String toGauge(Model model) {
+        NewsMatchRatio newsMatchRatio = Init.getNewsMatchRatio();
+//        logger.debug(newsMatchRatio.toJsonString());
+        return newsMatchRatio.toJsonString();
+    }
+
+    @RequestMapping(value = "/stat/bar", method = RequestMethod.GET)
+    @ResponseBody
+    public String toBar(Model model) {
+        List<NewsItem> newsItems = Init.getNewsItems();
+        if (newsItems.size() == 0) return null;
+
+        List<String> dateList = new ArrayList<>();
+        List<Integer> successNumList = new ArrayList<>();
+        List<Integer> failNumList = new ArrayList<>();
+        List<Float> successRatioList = new ArrayList<>();
+
+        for (NewsItem newsItem : newsItems) {
+            dateList.add(newsItem.getNewsDate());
+            successNumList.add(newsItem.getSuccessNewsNum());
+            failNumList.add(newsItem.getTotalNewsNum() - newsItem.getSuccessNewsNum());
+            successRatioList.add(Float.valueOf(newsItem.getSuccessRatio()));
+        }
+
+        Map<String, List> result = new HashMap<>();
+        result.put("dates", dateList);
+        result.put("successNums", successNumList);
+        result.put("failNums", failNumList);
+        result.put("successRatio", successRatioList);
+//        logger.debug(JSON.toJSONString(result));
+        return JSON.toJSONString(result);
+    }
+
+}

@@ -1,0 +1,7 @@
+logDir=/data/scripts/byinterserver/log/
+statFilePath=/data/scripts/byinterserver/
+#logDir=E:/work1/process/tmp/
+#statFilePath=E:/work1/process/tmp/
+successFileName=sucess.log
+failFileName=fail.log
+showDays=6

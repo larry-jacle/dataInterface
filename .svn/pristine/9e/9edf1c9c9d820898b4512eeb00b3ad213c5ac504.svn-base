@@ -1,0 +1,36 @@
+server:
+  port: 8080
+
+logging:
+  config: classpath:logback-spring.xml
+
+log:
+  bydata:
+    path:  E:\IDG\bydata\    #linux 路径 E:\IDG\bydata\ windows路径 bydata/
+    length: 134217728
+  loaddata:
+    path:  E:\IDG\loaddata\ #windows 路径 E:\IDG\loaddata\ linux路径 loaddata/
+    length: 20971520
+
+
+spring:
+  datasource:
+    jypconfig:
+      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://10.1.12.201:3306/JYP?useUnicode=true&characterEncoding=utf-8
+      username: root
+      password: 1234@abcd
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+
+#生产环境
+#spring:
+#  datasource:
+#    jypconfig:
+#      driver-class-name: com.mysql.jdbc.Driver
+#      jdbc-url: jdbc:mysql://10.101.0.154:3306/jyp?useUnicode=true&characterEncoding=utf-8
+#      username: user
+#      password: 1234@abcd

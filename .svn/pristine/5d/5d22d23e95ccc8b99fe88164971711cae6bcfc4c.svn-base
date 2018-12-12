@@ -1,0 +1,84 @@
+package com.gildata.byinterserver.quartz;
+
+import com.gildata.byinterserver.bean.NewsItem;
+import com.gildata.byinterserver.bean.NewsMatchRatio;
+import com.gildata.byinterserver.constant.Constant;
+import com.gildata.byinterserver.utils.DateUtil;
+import com.gildata.byinterserver.utils.NumberUtil;
+import com.gildata.byinterserver.utils.PropertiesUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
+
+/**
+ * Created by chenchen on 2018/11/19.
+ */
+public class Init {
+    private final static Logger logger = LoggerFactory.getLogger(Init.class);
+
+    private static volatile List<NewsItem> newsItems = null;
+    private static volatile NewsMatchRatio newsMatchRatio = new NewsMatchRatio();
+    private static Properties property = null;
+
+    public static void init() {
+        property = PropertiesUtil.getProps(Constant.PROP_FILE_NAME);
+    }
+
+    // 加载新闻入库统计数据到内存
+    public static void loadData() {
+        logger.debug("====加载近七日新闻入库信息");
+        String statFilePath = PropertiesUtil.getProps(Constant.PROP_FILE_NAME)
+                .getProperty(Constant.STAT_FILE_PATH);
+        Properties props = PropertiesUtil.getProperties(statFilePath + Constant.STAT_FILE_NAME);
+
+        List<NewsItem> newsItemsTmp = new ArrayList<>();
+
+        NewsMatchRatio clone = Init.getNewsMatchRatio().clone();
+        NewsItem newsItem = new NewsItem(DateUtil.getToday(),
+                Integer.valueOf(clone.getSuccess().replaceAll(",", "")),
+                Integer.valueOf(clone.getTotal().replaceAll(",", "")),
+                clone.getSuccessRatio());
+        newsItemsTmp.add(newsItem);
+
+        Iterator<String> iterator = props.stringPropertyNames().iterator();
+        int count = 0;
+        int showDays = Integer.parseInt(property.getProperty(Constant.SHOW_DAYS));
+        while (iterator.hasNext() && count < showDays) {
+            String key = iterator.next();
+            String[] value = props.getProperty(key).split(",");
+            int successCount = Integer.parseInt(value[1]);
+            int failCount = Integer.parseInt(value[0]);
+
+            int totalNewsNum = successCount + failCount;
+            String successRatio = NumberUtil.getRatio(successCount, totalNewsNum);
+
+            newsItem = new NewsItem(key, successCount, totalNewsNum, successRatio);
+            newsItemsTmp.add(newsItem);
+
+            count++;
+        }
+
+        newsItems = newsItemsTmp;
+        logger.debug("====近七日新闻入库信息加载完毕");
+    }
+
+    public static List<NewsItem> getNewsItems() {
+        return newsItems;
+    }
+
+    public static void setNewsMatchRatio(NewsMatchRatio newsMatchRatio) {
+        Init.newsMatchRatio = newsMatchRatio;
+    }
+
+    public static NewsMatchRatio getNewsMatchRatio() {
+        return newsMatchRatio;
+    }
+
+    public static Properties getProperty() {
+        return property;
+    }
+}

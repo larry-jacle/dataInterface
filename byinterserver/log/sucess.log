@@ -1,0 +1,58 @@
+2018-11-20 14:42:14,569 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 9788 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 14:42:14,572 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 14:42:20,752 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplicationTests in 9.613 seconds (JVM running for 12.184)
+2018-11-20 14:45:02,350 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 1084 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 14:45:02,355 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 14:45:06,581 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplicationTests in 5.42 seconds (JVM running for 6.915)
+2018-11-20 14:45:55,191 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 12124 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 14:45:55,196 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 14:45:59,650 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplicationTests in 5.859 seconds (JVM running for 7.207)
+2018-11-20 14:46:33,678 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 7268 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 14:46:33,682 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 14:46:37,850 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplicationTests in 5.459 seconds (JVM running for 6.77)
+2018-11-20 14:55:02,585 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 3164 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 14:55:02,593 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 14:57:09,957 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 1084 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 14:57:09,963 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 14:57:50,161 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 16572 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 14:57:50,165 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 14:58:04,231 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 13944 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 14:58:04,316 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 15:00:34,189 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 3676 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 15:00:34,192 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 15:00:41,455 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplicationTests in 8.576 seconds (JVM running for 10.094)
+2018-11-20 15:01:15,282 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 16516 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 15:01:15,286 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 15:01:25,347 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplicationTests in 11.355 seconds (JVM running for 13.213)
+2018-11-20 15:05:34,439 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 16544 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 15:05:34,443 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 15:05:41,213 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplicationTests in 7.836 seconds (JVM running for 9.182)
+2018-11-20 15:09:24,895 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 10580 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 15:09:24,899 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 15:09:31,025 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplicationTests in 7.384 seconds (JVM running for 8.727)
+2018-11-20 15:10:08,453 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 13448 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 15:10:08,457 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 15:10:17,207 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 8536 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 15:10:17,212 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 15:10:27,956 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplicationTests in 11.959 seconds (JVM running for 13.624)
+2018-11-20 15:11:45,012 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 16420 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 15:11:45,017 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 15:11:53,147 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplicationTests in 9.065 seconds (JVM running for 10.615)
+2018-11-20 15:16:14,984 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 5092 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 15:16:14,988 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 15:16:21,448 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplicationTests in 7.934 seconds (JVM running for 9.381)
+2018-11-20 15:31:28,539 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplicationTests on NB-LICHAO with PID 17076 (started by lichao in E:\IDG\byinterserver)
+2018-11-20 15:31:28,543 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 15:31:34,591 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplicationTests in 7.274 seconds (JVM running for 8.689)
+2018-11-20 15:43:10,347 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplication on NB-LICHAO with PID 15896 (E:\IDG\byinterserver\target\classes started by lichao in E:\IDG\byinterserver)
+2018-11-20 15:43:10,352 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 15:43:16,184 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplication in 6.464 seconds (JVM running for 8.443)
+2018-11-20 15:44:17,699 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplication on NB-LICHAO with PID 10660 (E:\IDG\byinterserver\target\classes started by lichao in E:\IDG\byinterserver)
+2018-11-20 15:44:17,750 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 15:44:21,270 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplication in 4.464 seconds (JVM running for 5.614)
+2018-11-20 15:53:13,856 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplication on NB-LICHAO with PID 14620 (E:\IDG\byinterserver\target\classes started by lichao in E:\IDG\byinterserver)
+2018-11-20 15:53:13,862 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 15:53:17,619 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplication in 4.926 seconds (JVM running for 6.117)
+2018-11-20 15:54:43,967 INFO (StartupInfoLogger.java:50)- Starting ByinterserverApplication on NB-LICHAO with PID 11808 (E:\IDG\byinterserver\target\classes started by lichao in E:\IDG\byinterserver)
+2018-11-20 15:54:43,973 INFO (SpringApplication.java:679)- The following profiles are active: dev
+2018-11-20 15:54:48,134 INFO (StartupInfoLogger.java:59)- Started ByinterserverApplication in 5.172 seconds (JVM running for 6.369)

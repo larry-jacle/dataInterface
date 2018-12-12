@@ -1,0 +1,62 @@
+package com.gildata.byinterserver.bean;
+
+/**
+ * Created by chenchen on 2018/11/16.
+ */
+public class NewsItem {
+    private String newsDate;
+    private Integer successNewsNum;
+    private Integer totalNewsNum;
+    private String successRatio;
+
+    public NewsItem() {
+    }
+
+    public NewsItem(String newsDate, Integer successNewsNum, Integer totalNewsNum, String successRatio) {
+        this.newsDate = newsDate;
+        this.successNewsNum = successNewsNum;
+        this.totalNewsNum = totalNewsNum;
+        this.successRatio = successRatio;
+    }
+
+    public String getNewsDate() {
+        return newsDate;
+    }
+
+    public void setNewsDate(String newsDate) {
+        this.newsDate = newsDate;
+    }
+
+    public Integer getSuccessNewsNum() {
+        return successNewsNum;
+    }
+
+    public void setSuccessNewsNum(Integer successNewsNum) {
+        this.successNewsNum = successNewsNum;
+    }
+
+    public Integer getTotalNewsNum() {
+        return totalNewsNum;
+    }
+
+    public void setTotalNewsNum(Integer totalNewsNum) {
+        this.totalNewsNum = totalNewsNum;
+    }
+
+    public String getSuccessRatio() {
+        return successRatio;
+    }
+
+    public void setSuccessRatio(String successRatio) {
+        this.successRatio = successRatio;
+    }
+
+    @Override
+    public String toString() {
+        return "NewsItem{" +
+                "newsDate='" + newsDate + '\'' +
+                ", successNewsNum='" + successNewsNum + '\'' +
+                ", totalNewsNum='" + totalNewsNum + '\'' +
+                '}';
+    }
+}

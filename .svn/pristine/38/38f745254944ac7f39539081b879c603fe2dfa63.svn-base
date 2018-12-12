@@ -1,0 +1,27 @@
+package com.gildata.byinterserver.service;
+
+import com.gildata.byinterserver.domain.UsrBYZQSJYB;
+import com.gildata.byinterserver.domain.UsrBYZQSJYBRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+
+/**
+ * Created by LiChao on 2018/11/20
+ */
+
+@Service
+public class UsrBYZQSJYBServiceImpl implements UsrBYZQSJYBService {
+
+    @Autowired
+    private UsrBYZQSJYBRepository usrBYZQSJYBRepository;
+
+
+    @Override
+    public List<UsrBYZQSJYB> findByZYLJ(String ZYLJ) {
+        List<UsrBYZQSJYB> data = usrBYZQSJYBRepository.findByZYLJ(ZYLJ);
+        return data;
+    }
+}

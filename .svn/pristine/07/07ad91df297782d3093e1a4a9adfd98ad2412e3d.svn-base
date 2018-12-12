@@ -1,0 +1,53 @@
+package com.gildata.byinterserver.quartz;
+
+import com.gildata.byinterserver.bean.NewsMatchRatio;
+import com.gildata.byinterserver.constant.Constant;
+import com.gildata.byinterserver.utils.DateUtil;
+import com.gildata.byinterserver.utils.NumberUtil;
+import com.gildata.byinterserver.utils.PropertiesUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+
+/**
+ * 调度任务
+ * Created by chenchen on 2018/11/16.
+ */
+@Component
+public class QuartzSchedule {
+    private final Logger logger = LoggerFactory.getLogger(QuartzSchedule.class);
+
+    private String time1 = " 00:01:55";
+    private String time2 = " 00:02:25";
+
+    @Scheduled(cron = "0/30 * * * * ?") // 每30秒执行一次
+    public void todayWork() throws Exception {
+        Date now = new Date();
+        String date = DateUtil.format(now, DateUtil.format1);
+        Date division1 = DateUtil.parse(date + time1, DateUtil.format2);
+        Date division2 = DateUtil.parse(date + time2, DateUtil.format2);
+
+        // 每天凌晨有一个job，将前一天数据持久化到文件中，内存统计数据归0
+        if (now.after(division1) && now.before(division2)) {
+            String previousDate = DateUtil.previousDay();
+            String value = NumberUtil.clear(Init.getNewsMatchRatio().getFail()) + ","
+                    + NumberUtil.clear(Init.getNewsMatchRatio().getSuccess());
+            String statFilePath = PropertiesUtil.getProps(Constant.PROP_FILE_NAME)
+                    .getProperty(Constant.STAT_FILE_PATH);
+            PropertiesUtil.setProperties(statFilePath + Constant.STAT_FILE_NAME, previousDate, value);
+
+            Init.setNewsMatchRatio(new NewsMatchRatio());
+            Init.loadData();
+        }
+
+        logger.debug("<<<<<<<<开始执行博约新闻准实时统计任务");
+        new NewsStatJob().doJob();
+        logger.debug("本次博约新闻准实时统计任务执行完成>>>>>>>>");
+
+        Date end = new Date();
+        logger.debug("this job costs {} ms", end.getTime() - now.getTime());
+    }
+}

@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: dev
+  thymeleaf:
+    mode: LEGACYHTML5
+    cache: false
+    check-template-location: true
+    enabled: true
+    encoding: utf-8
+    prefix: classpath:/templates/
+    suffix: .html
+  jpa:
+    open-in-view: true

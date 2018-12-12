@@ -1,0 +1,22 @@
+package com.gildata.byinterserver;
+
+
+import com.gildata.byinterserver.service.LoadDataService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+/**
+ * Created by LiChao on 2018/11/20
+ */
+@Component
+public class StartUpRunner implements CommandLineRunner{
+
+    @Autowired
+    private LoadDataService loadDataService;
+
+    @Override
+    public void run(String... strings) throws Exception {
+        loadDataService.init();
+    }
+}

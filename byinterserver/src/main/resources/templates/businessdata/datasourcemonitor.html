@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>博约数据源监控</title>
+    <link rel="stylesheet" type="text/css" href="css/cloud-admin.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li><a href="/">博约资讯数据监控 </a></li>
+        <li><a href="/realtimemonitor">博约实时数据监控</a></li>
+        <li class="active"><a ref="javscript:void(0);">博约数据源监控</a></li>
+    </ul>
+    <div class="row">
+        <div id="content" class="col-lg-12" >
+            <!-- PAGE HEADER-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header">
+
+                        <!-- BREADCRUMBS -->
+                        <ul class="breadcrumb">
+                            <li>
+                                <!--<i class="fa-tachometer fa fa-fw"></i>-->
+                                <!--监控面板-->
+                            </li>
+                        </ul>
+                        <!-- /BREADCRUMBS -->
+                        <div class="clearfix">
+                            <h3 class="content-title pull-left">博约数据源监控</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- project info start -->
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- BOX -->
+                    <div class="box border blue">
+                        <div class="box-title">
+                            <h4><i class="fa fa-bars"></i>数据统计</h4>
+                        </div>
+                        <div class="box-body big">
+                            <div class="row">
+                                <p class="text-primary">今日入库&nbsp;<strong id="import"></strong>&nbsp;条，数据源&nbsp;<strong id="dataSource"></strong>&nbsp;个。</p>
+                            </div>
+                            <div class="row">
+                                <ul id="myTab" class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#home" data-toggle="tab">近5天统计量</a>
+                                    </li>
+                                    <li><a href="#ios" data-toggle="tab">今日前十</a></li>
+                                </ul>
+                                <div id="myTabContent" class="tab-content">
+                                    <div class="tab-pane fade in active" id="home">
+                                        <div class="box-body big sparkline-stats">
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align: center;">日期</th>
+                                                        <th style="text-align: center;">数据源</th>
+                                                        <th style="text-align: center;">网页（去重）</th>
+                                                        <th style="text-align: center;">数据量</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody data-container="list">
+                                                    <tr data-row="list">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="ios">
+                                        <div class="box-body big sparkline-stats">
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align: center;">域名</th>
+                                                        <th style="text-align: center;">数据量</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody data-container="list1">
+                                                    <tr data-row="list1">
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /BOX -->
+                </div>
+                <div class="col-md-6">
+                    <!-- BOX -->
+                    <div class="box border blue">
+                        <div class="box-title">
+                            <h4><i class="fa fa-bars"></i>今日前十名域名数据量占比</h4>
+                        </div>
+                        <div class="box-body big sparkline-stats">
+                            <div id="main" style="height:400px;"></div>
+                        </div>
+                    </div>
+                    <!-- /BOX -->
+                </div>
+
+            </div>
+            <!-- project info end -->
+        </div>
+    </div>
+</div>
+<script src="js/jquery/jquery-2.0.3.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/echarts.min.js"></script>
+<script>
+(function() {
+    $.get('realtimemonitor/getTotalDataByData', function(result) {
+        if (result.status) {
+            var data = result.data;
+            $('#import').text(data.import);
+            $('#dataSource').text(data.dataSource);
+        } else {
+            console.error(result.msg);
+        }
+    });
+
+    $.get('realtimemonitor/getDataDetailCountBy5Day', function(result) {
+        if (result.status) {
+            var data = result.data;
+            var $container = $('tbody[data-container="list"]');
+            var $row = $('tr[data-row="list"]');
+            $container.empty();
+            var $clone = null;
+            if (data.length) {
+                for (var i = 0; i < data.length; i ++) {
+                    $clone = $row.clone();
+                    $clone.find('td:eq(0)').text(data[i].date);
+                    $clone.find('td:eq(1)').text(data[i].hostCnt);
+                    $clone.find('td:eq(2)').text(data[i].urlCnt);
+                    $clone.find('td:eq(3)').text(data[i].dataCnt);
+                    $container.append($clone);
+                }
+            } else {
+                $clone = $row.clone();
+                $clone.find('td:eq(0)').attr('colspan', 4).css('text-align', 'center').text('暂无数据').siblings().remove();
+                $container.append($clone);
+            }
+        } else {
+            console.error(result.msg);
+        }
+    });
+
+    $.get('realtimemonitor/getTop10DetailByDay', function(result) {
+        var datares = [];
+        var hosts = [];
+
+        if (result.status) {
+            var data = result.data;
+            var $container = $('tbody[data-container="list1"]');
+            var $row = $('tr[data-row="list1"]');
+            $container.empty();
+            var $clone = null;
+            if (data.length) {
+                for (var i = 0; i < data.length; i ++) {
+                    $clone = $row.clone();
+                    $clone.find('td:eq(0)').text(data[i].host);
+                    $clone.find('td:eq(1)').text(data[i].dataCnt);
+                    datares.push({'value':data[i].dataCnt,'name':data[i].host});
+                    hosts.push(data[i].host);
+                    $container.append($clone);
+                }
+            } else {
+                $clone = $row.clone();
+                $clone.find('td:eq(0)').attr('colspan', 2).css('text-align', 'center').text('暂无数据').siblings().remove();
+                $container.append($clone);
+            }
+
+            var myChart = echarts.init(document.getElementById('main'));
+            var option = {
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{b} : {c} ({d}%)"
+                },
+                series : [
+                    {
+                        type: 'pie',
+                        radius : '65%',
+                        center: ['50%', '50%'],
+                        selectedMode: 'single',
+                        data:datares,
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        },
+                        label: {
+                            normal: {
+                                fontWeight : 'normal'
+                            }
+                        }
+                    }
+                ],
+                grid: {
+                    x: 30,
+                    x2: 20,
+                    y: 12,
+                    height: 300
+                }
+            };
+            myChart.setOption(option);
+        } else {
+            console.error(result.msg);
+        }
+    });
+})();
+</script>
+</body>
+</html>
